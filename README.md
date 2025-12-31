@@ -11,9 +11,11 @@ CDPeek is a browser surveillance toolkit designed for red team operations. It le
 Pairs with [CDP-Enabler](https://github.com/deathflamingo/CDP-Enabler) for runtime CDP activation without browser restart—no need to wait for the target to relaunch their browser.
 
 ![Capture Showcase](images/Capture_Showcase.png)
+---
 ![Sending JS](images/Sending_JS.png)
+---
 ![JS Executed](images/JS_executed.png)
-
+---
 
 ### Components
 
