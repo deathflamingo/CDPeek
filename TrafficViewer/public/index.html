@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Remote Traffic Inspector</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="header">
+            <h1>Remote Traffic Inspector</h1>
+            <div class="header-controls">
+                <span id="connectionStatus" class="status-indicator disconnected">Disconnected</span>
+                <span id="transactionCount" class="transaction-count">0 requests</span>
+                <button id="getCookiesBtn" class="btn btn-action">Get Cookies</button>
+                <button id="executeJsBtn" class="btn btn-action">Execute JS</button>
+                <button id="saveBtn" class="btn btn-primary">Save</button>
+                <button id="loadBtn" class="btn btn-secondary">Load</button>
+                <button id="clearAllBtn" class="btn btn-danger">Clear</button>
+            </div>
+        </header>
+
+        <!-- Request Table (Top) -->
+        <div class="table-container">
+            <table class="request-table" id="requestTable">
+                <thead>
+                    <tr>
+                        <th class="col-id" style="width:40px">#<div class="col-resizer"></div></th>
+                        <th class="col-host" style="width:180px">Host<div class="col-resizer"></div></th>
+                        <th class="col-method" style="width:70px">Method<div class="col-resizer"></div></th>
+                        <th class="col-url" style="width:300px">URL<div class="col-resizer"></div></th>
+                        <th class="col-status" style="width:60px">Status<div class="col-resizer"></div></th>
+                        <th class="col-length" style="width:70px">Length<div class="col-resizer"></div></th>
+                        <th class="col-mime" style="width:120px">MIME Type<div class="col-resizer"></div></th>
+                        <th class="col-time" style="width:90px">Time</th>
+                    </tr>
+                </thead>
+                <tbody id="requestTableBody">
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Detail Panes (Bottom) -->
+        <div class="detail-container">
+            <!-- Request Pane -->
+            <div class="pane request-pane">
+                <div class="pane-header">
+                    <span class="pane-title">Request</span>
+                </div>
+                <div class="pane-content">
+                    <pre id="requestContent" class="content-display">Select a request to view details</pre>
+                </div>
+            </div>
+
+            <!-- Resizer -->
+            <div class="resizer" id="paneResizer"></div>
+
+            <!-- Response Pane -->
+            <div class="pane response-pane">
+                <div class="pane-header">
+                    <span class="pane-title">Response</span>
+                    <div class="tab-buttons">
+                        <button class="tab-btn active" data-tab="raw">Raw</button>
+                        <button class="tab-btn" data-tab="render">Render</button>
+                    </div>
+                </div>
+                <div class="pane-content">
+                    <div id="rawTab" class="tab-content active">
+                        <pre id="responseContent" class="content-display">Select a request to view details</pre>
+                    </div>
+                    <div id="renderTab" class="tab-content">
+                        <iframe id="renderFrame" sandbox="allow-same-origin" class="render-frame"></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Save/Load -->
+    <div id="modal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">Save/Load</h2>
+                <button class="modal-close" id="modalClose">&times;</button>
+            </div>
+            <div class="modal-body" id="modalBody">
+            </div>
+        </div>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
